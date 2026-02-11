@@ -1,0 +1,34 @@
+# OS/IDE फ़ाइलें
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# निर्भरता फ़ोल्डर
+node_modules/
+.venv/
+vendor/
+
+# निर्माण और आउटपुट फ़ोल्डर
+dist/
+build/
+target/
+
+# लॉग और अस्थायी फ़ाइलें
+*.log
+*.tmp
+*.bak
+*.swp
+
+# संवेदनशील या व्यक्तिगत फ़ाइलें
+.env
+config.json
+
+# टेस्ट और कवरिज़ फ़ाइलें
+coverage/
+*.lcov
+
+# अन्य सामान्य फ़ाइलें
+*.bak
+*.swp
+*.swo
