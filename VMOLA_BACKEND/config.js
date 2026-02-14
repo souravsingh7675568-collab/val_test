@@ -29,7 +29,9 @@ const connectDB = async () => {
         return connect();
       } else {
         console.error("DB Connection Error after " + maxRetries + " attempts:", error.message);
-        process.exit(1);
+        console.warn("⚠️  Starting server WITHOUT database connection — some features will fail gracefully");
+        // Don't crash — let server start and handle errors
+        return null;
       }
     }
   };
