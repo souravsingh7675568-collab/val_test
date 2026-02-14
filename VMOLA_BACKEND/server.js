@@ -22,27 +22,20 @@ connectDB();
 
 const app = express();
 
-// Configure CORS
-app.use(cors({
-  origin: function(origin, callback) {
-    const allowedOrigins = [
-      "http://localhost:3000",
-      "http://localhost:5000",
-      "https://valmo-frontend.onrender.com",
-      "https://valmo-backend.onrender.com"
-    ];
-    
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(null, true); // Allow all for now to debug CORS
-    }
-  },
-  credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"]
-}));
+// Explicit CORS headers for all requests (DEBUG - allow all)
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH, OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  
+  // Preflight request handling
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(200);
+  }
+  next();
+});
 
+app.use(cors());
 app.use(express.json());
 
 const upload = multer({ dest: "uploads/" });
