@@ -22,15 +22,13 @@ connectDB();
 
 const app = express();
 
-// CORS configuration - allow all origins for now
-const corsOptions = {
-  origin: true, // Reflects the request origin in the CORS header, works for any origin
-  credentials: true,
+// CORS configuration - properly handle all origins
+app.use(cors({
+  origin: "*",
   methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"]
-};
+}));
 
-app.use(cors(corsOptions));
 app.use(express.json());
 
 const upload = multer({ dest: "uploads/" });
