@@ -197,6 +197,36 @@ app.get("/api/admin/list-applications", async (req, res) => {
   }
 });
 
+// Get admin dashboard stats
+app.get("/api/admin/stats", async (req, res) => {
+  try {
+    const totalApplications = await ApplicationModel.countDocuments();
+    const pendingApplications = await ApplicationModel.countDocuments({ 
+      status: { $in: ["pending", "submitted"] } 
+    });
+    const approvedApplications = await ApplicationModel.countDocuments({ 
+      status: "approved" 
+    });
+    const totalAgents = await NewAgentModel.countDocuments();
+
+    res.json({
+      success: true,
+      stats: {
+        totalApplications,
+        pendingApplications,
+        approvedApplications,
+        totalAgents
+      }
+    });
+  } catch (err) {
+    console.error("Admin stats error:", err);
+    res.status(500).json({
+      success: false,
+      message: err.message
+    });
+  }
+});
+
 app.post("/api/agents", async (req, res) => {
   try {
     const { name, phone, agentId, email, password } = req.body;
