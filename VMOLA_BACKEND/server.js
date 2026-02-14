@@ -22,13 +22,22 @@ connectDB();
 
 const app = express();
 
-// Configure CORS to allow frontend requests
+// Configure CORS
 app.use(cors({
-  origin: [
-    "http://localhost:3000",
-    "https://valmo-frontend.onrender.com",
-    process.env.FRONTEND_URL || ""
-  ].filter(Boolean),
+  origin: function(origin, callback) {
+    const allowedOrigins = [
+      "http://localhost:3000",
+      "http://localhost:5000",
+      "https://valmo-frontend.onrender.com",
+      "https://valmo-backend.onrender.com"
+    ];
+    
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(null, true); // Allow all for now to debug CORS
+    }
+  },
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"]
