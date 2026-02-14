@@ -766,7 +766,7 @@ const Form = () => {
 
       // ---- Submit to the API ----
       const response = await fetch(
-        "http://localhost:5000/api/createApplication",
+        `${process.env.REACT_APP_API_BASE || "http://localhost:5000"}/api/createApplication`,
         {
           method: "POST",
           body: formDataToSend, // no Content-Type header (browser sets it)

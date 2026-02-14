@@ -203,7 +203,7 @@ const ViewApplication = () => {
   const loadApplicationDetails = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/application/${decodedId}`
+        `${process.env.REACT_APP_API_BASE || "http://localhost:5000"}/api/application/${decodedId}`
       );
       const result = await response.json();
 

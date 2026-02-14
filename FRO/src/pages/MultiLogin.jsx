@@ -66,7 +66,8 @@ const MultiLogin = () => {
       }
 
       // Agent Login API
-      let endpoint = "http://localhost:5000/api/Agentlogin";
+      const apiBase = process.env.REACT_APP_API_BASE || "http://localhost:5000";
+      let endpoint = `${apiBase}/api/Agentlogin`;
       let requestBody =
         currentLoginType === "agent"
           ? {

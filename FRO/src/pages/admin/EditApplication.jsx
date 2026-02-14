@@ -203,7 +203,7 @@ const EditApplication = () => {
   const loadApplicationDetails = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/application/${decodedId}`
+        `${process.env.REACT_APP_API_BASE || "http://localhost:5000"}/api/application/${decodedId}`
       );
       const result = await response.json();
 
@@ -603,7 +603,7 @@ const EditApplication = () => {
 
       // ---- Submit to the API ----
       const response = await fetch(
-        `http://localhost:5000/api/updateApplication/${decodedId}`,
+        `${process.env.REACT_APP_API_BASE || "http://localhost:5000"}/api/updateApplication/${decodedId}`,
         {
           method: "PUT",
           body: formDataToSend, // no Content-Type header (browser sets it)

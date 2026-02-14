@@ -35,7 +35,8 @@ const AdminAgentManagement = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5000/api/agents", formData);
+      const apiBase = process.env.REACT_APP_API_BASE || "http://localhost:5000";
+      await axios.post(`${apiBase}/api/agents`, formData);
       alert("Agent created successfully ✅");
       setFormData({
         name: "",
@@ -53,7 +54,8 @@ const AdminAgentManagement = () => {
 
   const fetchAgents = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/agents");
+      const apiBase = process.env.REACT_APP_API_BASE || "http://localhost:5000";
+      const res = await axios.get(`${apiBase}/api/agents`);
       setAgents(res.data);
     } catch (error) {
       console.error("Error fetching agents:", error);
@@ -70,7 +72,8 @@ const AdminAgentManagement = () => {
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this agent?")) return;
     try {
-      await axios.delete(`http://localhost:5000/api/agents/${id}`);
+      const apiBase = process.env.REACT_APP_API_BASE || "http://localhost:5000";
+      await axios.delete(`${apiBase}/api/agents/${id}`);
       alert("Agent deleted successfully ✅");
       fetchAgents();
     } catch (error) {

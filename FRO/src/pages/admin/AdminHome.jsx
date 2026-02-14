@@ -32,7 +32,8 @@ const AdminHome = () => {
 
   const loadStats = async () => {
     try {
-      const response = await fetch("/api/admin/stats");
+      const apiBase = process.env.REACT_APP_API_BASE || "http://localhost:5000";
+      const response = await fetch(`${apiBase}/api/admin/stats`);
       const result = await response.json();
 
       if (response.ok) {
@@ -45,7 +46,8 @@ const AdminHome = () => {
 
   const fetchApplications = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/getApplication");
+      const apiBase = process.env.REACT_APP_API_BASE || "http://localhost:5000";
+      const res = await fetch(`${apiBase}/api/getApplication`);
       const data = await res.json();
 
       if (data.success) {
