@@ -22,7 +22,18 @@ connectDB();
 
 const app = express();
 
-app.use(cors());
+// Configure CORS to allow frontend requests
+app.use(cors({
+  origin: [
+    "http://localhost:3000",
+    "https://valmo-frontend.onrender.com",
+    process.env.FRONTEND_URL || ""
+  ].filter(Boolean),
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
+
 app.use(express.json());
 
 const upload = multer({ dest: "uploads/" });
