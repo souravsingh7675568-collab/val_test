@@ -22,20 +22,15 @@ connectDB();
 
 const app = express();
 
-// Explicit CORS headers for all requests (DEBUG - allow all)
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH, OPTIONS");
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  
-  // Preflight request handling
-  if (req.method === "OPTIONS") {
-    return res.sendStatus(200);
-  }
-  next();
-});
+// CORS configuration - allow all origins for now
+const corsOptions = {
+  origin: true, // Reflects the request origin in the CORS header, works for any origin
+  credentials: true,
+  methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+};
 
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 
 const upload = multer({ dest: "uploads/" });
